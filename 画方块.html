@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			div{
+				width: 0px;
+				height: 0px;
+				border: 5px solid red;
+				position: absolute;
+				left: 0;
+				top: 0;
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div></div>
+	</body>
+	<script>
+		var box = document.getElementsByTagName('div')[0];
+		document.onmousedown = function(ev){
+			box.style.display = 'block'
+			var mx = ev.clientX;
+			var my = ev.clientY;
+			document.onmousemove = function(ev){
+				var dx = ev.clientX;
+				var dy = ev.clientY;
+				box.style.width = Math.abs(mx-dx)+'px';
+				box.style.height = Math.abs(my-dy)+'px';
+				if(dx-mx>0){
+					box.style.left = dx-Math.abs(mx-dx)-10+'px';
+				}else{
+					box.style.left = dx+'px';
+				}
+				if(dy-my>0){
+					box.style.top = dy-Math.abs(my-dy)-10+'px';
+				}else{
+					box.style.top = dy+'px';
+				}
+			}
+		}
+		document.onmouseup = function(){
+			box.style.cssText = '';
+			console.log(box)
+		}
+	</script>
+</html>

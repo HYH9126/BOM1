@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			div{
+				width: 500px;
+				height: 500px;
+				margin: 100px auto 0px;
+				border: 5px solid red;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div></div>
+	</body>
+	<script>
+		var box = document.getElementsByTagName('div')[0];
+		var nl = 0;
+		var nt = 0;
+		var arrC = ['red','pink','green','blue','yellow','purple'];
+		var maxT = box.clientHeight;
+		box.onclick = function(ev){
+			nl = ev.clientX;
+			nt = ev.clientY;
+			for(var i=0;i<10;i++){
+				xing();
+				
+			}
+		}
+		function xing(){
+			var div = document.createElement('span');
+			var n = Math.round(Math.random()*(arrC.length-1));
+			div.innerHTML = '★';
+			div.style.position= 'absolute';
+			div.style.fontSize = '40px';
+			div.style.color = arrC[n];
+			div.style.left = nl-15+'px';
+			div.style.top = nt-25+'px';
+			document.body.appendChild(div);
+			var l = div.offsetLeft;
+			var t = div.offsetTop;
+			var x = Math.round(Math.random()*10-5);
+			console.log(x)
+			var y = Math.round(Math.random()*10-20);
+			div.timer = setInterval(function(){
+				div.style.left = (l+=x)+'px';
+				div.style.top = (t+=++y)+'px';
+				var o = div.offsetTop;
+				if(o>600){
+					console.log(2)
+					clearInterval(div.timer);
+					document.body.removeChild(div);
+				}
+			},20)
+		}
+	</script>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			.box{
+				width: 100px;
+				height: 100px;
+				float: left;
+				margin-right: 150px;
+				margin-top: 100px;
+				font: 40px/100px "微软雅黑";
+				font-weight: bolder;
+				text-align: center;
+				color: #fff;
+				background: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">1</div>
+		<div class="box">2</div>
+		<div class="box">3</div>
+		<div class="box">4</div>
+		<div class="box">5</div>
+		<div class="box">6</div>
+		<div class="box">7</div>
+		<div class="box">8</div>
+		<div class="box">9</div>
+		<div class="box">10</div>
+	</body>
+	<script>
+		function Drag(className){
+			this.box = document.getElementsByClassName(className);
+			this.disX = 0;
+			this.disY = 0;
+			this.PositionChange();
+			this.All();
+		}
+		Drag.prototype.PositionChange = function(){
+			var _this = this;
+			var l = 0;
+			var t = 0;
+			for(var i=0,len=this.box.length;i<len;i++){
+				l = this.box[i].offsetLeft;
+				t = this.box[i].offsetTop;
+				this.box[i].style.left = l+'px';
+				this.box[i].style.top = t+'px';
+			}
+			setTimeout(function(that){
+				for(var i=0,len=that.box.length;i<len;i++){
+					that.box[i].style.position = 'absolute';
+					that.box[i].style.margin = '0';
+				}
+			},0,_this)
+		}
+		Drag.prototype.All = function(){
+			var _this = this;
+			for(var i=0,len=this.box.length;i<len;i++){
+				this.box[i].index = i;
+				this.box[i].onmousedown = function(ev){
+					var obj = this;
+					_this.disX = ev.clientX - this.offsetLeft;
+					_this.disY = ev.clientY - this.offsetTop;
+					document.onmousemove = function(ev){
+						_this.Move(ev,obj)
+					}
+					document.onmouseup = function(ev){
+						_this.Up(ev);
+					}
+				}
+			}
+		}
+		Drag.prototype.Move = function(_ev,_obj){
+			var l = _ev.clientX - this.disX;
+			var t = _ev.clientY - this.disY;
+			_obj.style.left = l+'px';
+			_obj.style.top = t+'px';
+		}
+		Drag.prototype.Up = function(_ev){
+			document.onmousemove = document.onmouseup = null;
+		}
+		var d = new Drag('box');
+	</script>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			div{
+				width: 100px;
+				height: 100px;
+				background: red;
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div></div>
+	</body>
+	<script>
+		var box = document.getElementsByTagName('div')[0];
+		var code = {
+			l:false,
+			t:false,
+			r:false,
+			b:false
+		}
+		document.onkeydown = function(ev){
+			if(ev.keyCode==37){
+				code.l=true;
+			}
+			if(ev.keyCode==38){
+				code.t=true;
+			}
+			if(ev.keyCode==39){
+				code.r=true;
+			}
+			if(ev.keyCode==40){
+				code.b=true;
+			}
+		}
+		document.onkeyup = function(ev){
+			if(ev.keyCode==37){
+				code.l=false;
+			}
+			if(ev.keyCode==38){
+				code.t=false;
+			}
+			if(ev.keyCode==39){
+				code.r=false;
+			}
+			if(ev.keyCode==40){
+				code.b=false;
+			}
+		}
+		setInterval(function(){
+			var nl = box.offsetLeft;
+			var nt = box.offsetTop;
+			if(code.l){
+				box.style.left = nl-5+'px';
+			}
+			if(code.t){
+				box.style.top = nt-5+'px';
+			}
+			if(code.r){
+				box.style.left = nl+5+'px';
+			}
+			if(code.b){
+				box.style.top = nt+5+'px';
+			}
+		},10)
+	</script>
+</html>
